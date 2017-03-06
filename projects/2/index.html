@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CTA Bus Routes</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <style>
+  </style>
+</head>
+<body>
+<h1>Lane Tech Bus Routes</h1>
+<button type ="button" id="btnwestern">Western</button>
+<button type ="button" id="btnaddison">Addison</button>
+<div class= "results" id="152East"> </div>
+<div class= "results" id="152West"></div>
+<div class= "results" id="49North"></div>
+<div class= "results" id="49South"> </div>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+      
+      
+      
+        $(function() {
+          
+          
+          var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+          
+          var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions";
+          $("#btnwestern").on("click", function() {
+          $(".results").html("")    
+          
+          
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "VP7Jg5tpX5SdMKRrsuEgS4WjY",
+                      "format":"json",
+                      "stpid":"8195",
+                      "top":"",
+                      "tmres":"m"
+              }
+            }).done (function (data) {
+              $.each(data["bustime-response"] ["prd"], function(i,v) {
+                  console.log(data);
+                  var western = "<div id=westernprd>" + "#" + v.rt + v.rtdir + ", " + v.stpnm + ", " + v.prdctdn + " " + "min(s)" + ", " + v.prdtm + " "  + "<br>" + "<hr>" + "</div>"
+                  $("#49North").append(western);
+                
+              }
+
+            );
+        });
+          });
+           
+ 
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "VP7Jg5tpX5SdMKRrsuEgS4WjY",
+                      "format":"json",
+                      "stpid":"8417",
+                      "top":"",
+                      "tmres":"m"
+              }
+            }).done (function (data) {
+              $.each(data["bustime-response"] ["prd"], function(i,v) {
+                  console.log(data);
+                  var western = "<div id=addisonprd>" + "#" + v.rt + v.rtdir + ", " + v.stpnm + ", " + v.prdctdn + " " + "min(s)" + ", " + v.prdtm + " "  + "<br>" + "<hr>" + "</div>"
+                  $("#49South").append(western);
+                
+              }
+
+            );
+        }); 
+          $("btnaddison").on("click", function() {
+          $(".results").html("")  
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "VP7Jg5tpX5SdMKRrsuEgS4WjY",
+                      "format":"json",
+                      "stpid":"12569",
+                      "top":"",
+                      "tmres":"m"
+              }
+            }).done (function (data) {
+              $.each(data["bustime-response"] ["prd"], function(i,v) {
+                  console.log(data);
+                  var addison = "<div id=addisonprd>" + "#" + v.rt + v.rtdir + ", " + v.stpnm + ", " + v.prdctdn + " " + "min(s)" + ", " + v.prdtm + " "  + "<br>" + "<hr>" + "</div>"
+                  $("#152East").append(addison);
+                
+              }
+
+            );
+        }); 
+ 
+          $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "VP7Jg5tpX5SdMKRrsuEgS4WjY",
+                      "format":"json",
+                      "stpid":"12527",
+                      "top":"",
+                      "tmres":"m"
+              }
+            }).done (function (data) {
+              $.each(data["bustime-response"] ["prd"], function(i,v) {
+                  console.log(data);
+                  var addison = "<div id=addisonprd>" + "#" + v.rt + v.rtdir + ", " + v.stpnm + ", " + v.prdctdn + " " + "min(s)" + ", " + v.prdtm + " "  + "<br>" + "<hr>" + "</div>"
+                  $("#152West").append(addison);
+                
+              }
+
+            );
+            });
+        })
+      })
+</script>
+ 
+</body>
+</html>
