@@ -1,0 +1,15 @@
+{
+  "short_name": "Chicago's History",
+  "name": "Chicago's History" ,
+  "icons": [
+    {
+      "src":"projects/flag.png",
+      "sizes": "190x190",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html?utm_source=homescreen"
+  "background_color": "#000",
+  "Theme_color": "#536878",
+  "display": "standalone"
+}

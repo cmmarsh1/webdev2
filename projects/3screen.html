@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <!-- Material Design Lite -->
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="manifest" href="/manifest.json">
+     <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+     <meta name="msapplication-TileColor" content="#2F3BA2">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      .screen {
+        display:none;
+      }
+      li {
+        color: black;
+        padding:10px;
+        padding-top: 20px;
+        padding-right: 30px;
+        padding-bottom: 50px ;
+        padding-left: 80px;
+        font-size: 23px;
+      }
+     .color{
+       background-color:black;
+     }
+     .color2{
+       background-color:#40b1e5;
+     }
+    </style>
+  </head>
+  <body>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class=" color2 mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Chicago's Rich History</span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="color mdl-navigation mdl-layout--large-screen-only">
+            <a id="link1" class="mdl-navigation__link" href="#">Fun Facts</a>
+            <a id="link2" class="mdl-navigation__link" href="#">Pictures</a>
+            <a id="link3" class="mdl-navigation__link" href="#">Pictures (Cont.)</a>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">History of Chicago</span>
+        <nav class="mdl-navigation">
+          <a id="link1" class="mdl-navigation__link" href="#">Fun Facts </a>
+          <a id="link2" class="mdl-navigation__link" href="#">Pictures</a>
+          <a id="link3" class="mdl-navigation__link" href="#">Pictures (Cont.)</a>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div id="screen1" class="screen page-content"><h1>Fun Facts</h1><p ><ul>
+  <li>The name Chicago comes from a Miami Indian word for the wild leeks that grew on the bank of the short Chicago River</li>
+  <li>The first non-Indian to settle within Chicago’s future boundaries was a Santo Domingan of mixed African and European ancestry, Jean Baptiste Point du Sable, who arrived around 1780</li>
+  <li>In October 1871, a fire destroyed one-third of Chicago and left more than 100,000 homeless</li>
+  <li> In 1893 Chicago hosted the World’s Columbian Exposition, which drew over 20 million visitors to its “White City” of plaster Gilded Age buildings built on former bogland beside Chicago’s south lakefront</li>
+  <li>The 1886 Haymarket affair, in which police fired on protesting workers (and, in the confusion following a fatal anarchist bombing, each other), ushered in an era of protest and reform for the multitudes of workers who kept Chicago’s meatpacking, manufacturing and shipping industries running.</li>
+  <li>By the 1930s Chicago’s population reached 3 million.</li>
+</ul>
+</p></div>
+        <div id="screen2" class="screen page-content"><h1>The Skyline</h1><img src="skyline_night.jpg" border="0" alt=""><hr><h1>Navy Pier</h1><img src="navy_pier.jpg" border="0" alt=""></div>
+        <div id="screen3" class="screen page-content"><h1>The Bean</h1><img src="bean.jpg" border="0" alt=""><hr><h1>View from Lake Michigan</h1><img src="lake_michigan.jpg" border="0" alt=""</div> 
+      </main>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+    </script>
+    <script>
+      $(function() { 
+       $("#screen1").show();
+       
+       $("#link1").on("click", function(){
+        $(".screen").hide(); 
+        $("#screen1").show(); 
+       });
+       
+       $("#link2").on("click", function(){
+         $(".screen").hide(); 
+         $("#screen2").show();
+       });
+       
+       $("#link3").on("click", function(){
+         $(".screen").hide(); 
+         $("#screen3").show(); 
+       });
+       
+       
+      });
+    </script>
+  </body>
+<script>
+  if ('serviceWorker' in navigator) {
+    console.log("Will the service worker register?");
+    navigator.serviceWorker.register('service-worker.js')
+      .then(function(reg){
+        console.log("Yes, it did.");
+      }).catch(function(err) {
+        console.log("No it didn't. This happened: ", err)
+      });
+  }
+</script>  
+</html>
