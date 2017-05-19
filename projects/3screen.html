@@ -5,10 +5,8 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <!-- Material Design icon font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="manifest" href="/manifest.json">
-     <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
-     <meta name="msapplication-TileColor" content="#2F3BA2">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       .screen {
         display:none;
@@ -66,9 +64,8 @@
 </ul>
 </p></div>
         <div id="screen2" class="screen page-content"><h1>The Skyline</h1><img src="skyline_night.jpg" border="0" alt=""><hr><h1>Navy Pier</h1><img src="navy_pier.jpg" border="0" alt=""></div>
-        <div id="screen3" class="screen page-content"><h1>The Bean</h1><img src="bean.jpg" border="0" alt=""><hr><h1>View from Lake Michigan</h1><img src="lake_michigan.jpg" border="0" alt=""</div> 
+        <div id="screen3" class="screen page-content"><h1>The Bean</h1><img src="bean.jpg" border="0" alt=""><hr><h1>View from Lake Michigan</h1><img src="lake_michigan.jpg" border="0" alt=""></div> 
       </main>
-    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
     </script>
     <script>
@@ -94,15 +91,4 @@
       });
     </script>
   </body>
-<script>
-  if ('serviceWorker' in navigator) {
-    console.log("Will the service worker register?");
-    navigator.serviceWorker.register('service-worker.js')
-      .then(function(reg){
-        console.log("Yes, it did.");
-      }).catch(function(err) {
-        console.log("No it didn't. This happened: ", err)
-      });
-  }
-</script>  
 </html>

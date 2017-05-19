@@ -3,7 +3,7 @@
   "name": "Chicago's History" ,
   "icons": [
     {
-      "src":"projects/flag.png",
+      "src":".images/flag.png",
       "sizes": "190x190",
       "type": "image/png"
     }

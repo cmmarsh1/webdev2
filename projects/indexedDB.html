@@ -1,0 +1,161 @@
+<html>
+  <head>
+    <!-- Material Design Lite -->
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <!-- Material Design icon font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Council Member Data</title>
+  <style>
+    .color {
+      background-color:#e4b4ed;
+    }
+    #council {
+    
+    }
+  </style>  
+  </head>
+  <body>
+    <!-- Simple header with fixed tabs. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+                mdl-layout--fixed-tabs">
+      <header class="color mdl-layout__header">
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">Employee App</span>
+        </div>
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+          <a href="#fixed-tab-1" class="color mdl-layout__tab is-active">Search</a>
+          <a href="#fixed-tab-2" class="color mdl-layout__tab">Add Employee</a>
+          <a href="#fixed-tab-3" class="color mdl-layout__tab"> About</a>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">Title</span>
+      </div>
+      <main class="mdl-layout__content">
+        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+          <div class="page-content"><h1>Chicago Council Member Data</h1><p>Click the button below in order to call employee information</p><button type="button" id="search" >Member Search</button></div><hr><div id="council"></div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+          <div class="page-content"><h1>Add a Member</h1><input id="txtQuery" type="text" placeholder="Enter employee name"></input><button type="button" id="btnSearch" >Search</button></div><hr><div id ="members"></div>
+        </section>
+        <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+          <div class="page-content"><!-- Your content goes here --></div>
+        </section>
+        <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.0.min.js"></script>
+        <script>
+            $(function() {
+              var db = new Dexie("employeeDB");
+              var endpoint = "https://data.cityofchicago.org/resource/tt4n-kn4t.json?department=CITY%20COUNCIL"
+              db.version(1).stores({
+                employees: '++id,name,title,department,annual_salary'
+              });
+              $("#search").click(function() {
+                db.employees.count().then(function(count) {
+                  console.log(count);
+                  if (count == 0) {
+                    $("#council").html("");
+                    $.getJSON(endpoint).done(function(data) {
+                      console.log(data);
+                      $.each(data, function(i,v) {
+                        db.employees.add({
+                          name: v.name,
+                          title: v.job_titles,
+                          department: v.department,
+                          annual_salary: v.employee_annual_salary
+                        });
+                        $("#council").append("<div class='mdl-card'><div class='mdl-card__title'><h2 class='mdl-card__title-text'>"
+                        + v.name
+                        + '</h2></div><div class="mdl-card__supporting-text"><p>Title: '
+                        + v.title
+                        + '<br>Department: '
+                        + v.department
+                        + '<br>Annual Salary: '
+                        + v.annual_salary
+                        + '</p></div></div><hr>');
+                        });
+                    }).catch(function(error) {
+                      alert("An error occured: " + error);
+                    });
+                  } else {
+                    db.employees.each(function(employee) {
+                      $("#council").append("<div class='mdl-card'><div class='mdl-card__title'><h2 class='mdl-card__title-text'>"
+                        + employee.name
+                        + '</h2></div><div class="mdl-card__supporting-text"><p>Title: '
+                        + employee.title
+                        + '<br>Department: '
+                        + employee.department
+                        + '<br>Annual Salary: '
+                        + employee.annual_salary
+                        + '</p></div></div><hr>');
+                    });
+                  }
+                });
+              });
+              $("#btnSearch").click(function() {
+                var query = $("#input").val();
+                console.log(query);
+                db.employees.count().then(function(count) {
+                  console.log(count);
+                  if (count == 0) {
+                    $("#output").html("");
+                    $.getJSON(endpoint).done(function(data) {
+                      console.log(data);
+                      $.each(data, function(i,v) {
+                        db.employees.add({
+                          name: v.name,
+                          title: v.job_titles,
+                          department: v.department,
+                          annual_salary: v.employee_annual_salary
+                        });
+                      });
+                      db.employees.where("name").startsWith(query).each(function(employee) {
+                        console.log(employee.name);
+                        $("#members").append("<div class='mdl-card'><div class='mdl-card__title'><h2 class='mdl-card__title-text'>"
+                        + employee.name
+                        + '</h2></div><div class="mdl-card__supporting-text"><p>Title: '
+                        + employee.title
+                        + '<br>Department: '
+                        + employee.department
+                        + '<br>Annual Salary: '
+                        + employee.annual_salary
+                        + '</p></div></div><hr>');
+                      });
+                    }).catch(function(error) {
+                      alert("An error occured: " + error);
+                    });
+                  } else {
+                    $("#members").html("");
+                    db.employees.where("name").startsWith(query).each(function(employee) {
+                      $("#output").append("<div class='mdl-card'><div class='mdl-card__title'><h2 class='mdl-card__title-text'>"
+                        + employee.name
+                        + '</h2></div><div class="mdl-card__supporting-text"><p>Title: '
+                        + employee.title
+                        + '<br>Department: '
+                        + employee.department
+                        + '<br>Annual Salary: '
+                        + employee.annual_salary
+                        + '</p></div></div><hr>');
+                    });
+                  }
+                });
+              });
+              $("#addEmployee").click(function() {
+                db.employees.put({name: $("#name").val(), title: $("#titles").val(), department: $("#department").val(), annual_salary: $("#annualSalary").val()});
+              });
+              
+              navigator.serviceWorker.register('./sw.js');
+              
+              navigator.serviceWorker.ready.then(function(swRegistration) {
+                return swRegistration.sync.register('myFirstSync');
+              });
+            });
+               
+          </script>  
+      </main>
+    </div>
+  </body>
+</html>
