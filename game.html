@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    canvas {
+        border: 5px solid;
+    }
+</style>    
+</head>
+<body>
+
+<canvas id="myCanvas" width="600" height="500">
+</canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+            
+            $(function()  {
+                
+            //create a reference to the canvas element
+            var canvas = document.getElementById("myCanvas");
+            
+            //create a reference to the drawing object
+            var ctx = canvas.getContext("2d");
+            var harmX = 500;
+            var harmY = 50;
+            var benefitX = 500;
+            var benefitY = 300;
+            var rectSpeed = 3;
+            var direction = 1;
+            var lives = 4;
+            var score = 0;
+            var level = 1;
+            var player = new Image();
+            player.src = "http://images.clipartpanda.com/slush-clipart-nTBXE68TA.gif";
+            var background = new Image();
+            background.src = "http://blog.sevenponds.com/wp-content/uploads/2012/07/starry-night-871287410454UmtH.jpg";
+            var harmColor = '#fdffdb';
+            var beneColor = "#eda59e";
+            var A = 0;
+            var B = 0;
+            var X = 0;
+            var Y = 0;
+            function draw () {
+                // clear the canvas 
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                // draw background
+                ctx.drawImage(background, A, B, 600, 500);
+                 // draw player
+                 ctx.drawImage(player, X, Y, 84, 92); 
+                // moves player up and down
+                
+                // draw a filled rectangle (harm)
+                ctx.beginPath();
+                ctx.fillStyle = harmColor;
+                ctx.rect(harmX, harmY, 150, 80);
+                ctx.fill(); 
+                
+                if (harmX >= (canvas.width - 20) ) {
+                    direction = -2;
+                }
+                else if (harmX <= -150) {
+                    harmX = canvas.width;
+                    harmY = Math.floor((Math.random() * canvas.height) + 30);
+                    direction = 2;
+                }
+                // draw a filled rectangle (benefit)
+                ctx.beginPath();
+                ctx.fillStyle = beneColor;
+                ctx.rect(benefitX,benefitY, 150, 80);
+                ctx.fill(); 
+                
+                if (benefitX >= (canvas.width - 20) ) {
+                    direction = -2;
+                }
+                else if (benefitX <= -150) {
+                    benefitX = canvas.width;
+                    benefitY = Math.floor((Math.random() * canvas.height) + 30);
+                    direction = 2;
+                }
+                
+                
+                // lives and score
+                ctx.font = "20px Arial";
+                ctx.fillStyle = "#ffffff";
+                ctx.fillText("Level: " + level,350,20);
+                ctx.font = "20px Arial";
+                ctx.fillText("Score: " + score, 350, 50);
+                ctx.font = "20px Arial";
+                ctx.fillText("Lives Remaining: " + lives, 350,80);
+                 
+                // increment the benefit x coord variable
+                benefitX = benefitX + (rectSpeed * direction);
+                
+                 // increment the harm x coord variable
+                harmX = harmX + (rectSpeed * direction);
+                
+                // collison detection
+                 if( X < harmX + 150 && X + 92 > harmX && Y < harmY + 80 && 84 + Y > harmY) {
+                     harmX = canvas.width;
+                     lives -= 1;
+                 }
+                 else if (X < benefitX + 150 && X + 92 > benefitX && Y < benefitY + 80 && 84 + Y > benefitY) {
+                     benefitX = canvas.width;
+                     score += 10;
+                     
+                 }
+                 if (score >= 100) {
+                     level = 2;
+                     
+                 }
+                else if (lives <= 0) {
+                   lives = 4;
+                   score = 0;
+                   level = 1;
+                }
+                
+                
+                window.requestAnimationFrame(draw);
+                
+                
+            }
+                 $(document).keydown(function(e){
+                     console.log(Y);
+                    if (e.keyCode == 38 ) {
+                        Y = Y-10;
+                    }
+                    else if (e.keyCode == 40 ){
+                        Y = Y+10;
+                        
+                    }
+                    
+                 });
+ 
+                
+                
+                
+                
+                draw();
+                
+            });
+      
+        
+</script>
+</body>
+</html>

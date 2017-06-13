@@ -1,0 +1,49 @@
+<html>
+ <body onload="draw();">
+   <canvas id="canvas" width="150" height="150"></canvas>
+ </body>
+ <script>
+ function draw() {
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+    var X = 1
+    var Y = 1
+
+    // Cubic curves example
+    ctx.beginPath();
+    ctx.moveTo(95, 60);
+    ctx.bezierCurveTo(95, 57, 90, 45, 70, 45);
+    ctx.bezierCurveTo(40, 45, 40, 82.5, 40, 82.5);
+    ctx.bezierCurveTo(40, 100, 60, 122, 95, 140);
+    ctx.bezierCurveTo(130, 122, 150, 100, 150, 82.5);
+    ctx.bezierCurveTo(150, 82.5, 150, 45, 120, 45);
+    ctx.bezierCurveTo(105, 45, 75, 57, 95, 60);
+    ctx.fillStyle = "pink";
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.moveTo(95, 60);
+    ctx.bezierCurveTo(95-X, 57+Y, 90-X, 45+Y, 70-X, 45+Y);
+    ctx.bezierCurveTo(40-X, 45+Y, 40-X, 82.5+Y, 40-X, 82.5+Y);
+    ctx.bezierCurveTo(40-X, 100+Y, 60-X, 122+Y, 95-X, 140+Y);
+    ctx.bezierCurveTo(130-X, 122+Y, 150-X, 100+Y, 150-X, 82.5+Y);
+    ctx.bezierCurveTo(150-X, 82.5+Y, 150-X, 45+Y, 120-X, 45+Y);
+    ctx.bezierCurveTo(105-X, 45+Y, 95-X, 57+Y, 95-X, 60+Y);
+    ctx.fillStyle = "black";
+    ctx.fill();
+    
+    ctx.beginPath();
+    ctx.moveTo(95, 60);
+    ctx.bezierCurveTo(95-2*X, 57+2*Y, 90-2*X, 45+2*Y, 70-2*X, 45+2*Y);
+    ctx.bezierCurveTo(40-2*X, 45+2*Y, 40-2*X, 82.5+2*Y, 40-2*X, 82.5+2*Y);
+    ctx.bezierCurveTo(40-2*X, 100+2*Y, 60-2*X, 122+2*Y, 95-2*X, 140+2*Y);
+    ctx.bezierCurveTo(130-2*X, 122+2*Y, 150-2*X, 100+2*Y, 150-2*X, 82.5+2*Y);
+    ctx.bezierCurveTo(150-2*X, 82.5+2*Y, 150-2*X, 45+2*Y, 120-2*X, 45+2*Y);
+    ctx.bezierCurveTo(105-2*X, 45+2*Y, 95-2*X, 57+2*Y, 95-2*X, 60+2*Y);
+    ctx.fillStyle = "white";
+    ctx.fill();
+  }
+}
+</script>
+</html>
